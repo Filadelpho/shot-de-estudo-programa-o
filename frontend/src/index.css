@@ -1,0 +1,305 @@
+:root{
+  --branco: #ffffff;
+  --amarelo: #39ff88;
+  --marrom: #10182b;
+  --vermelho: #ff4d6d;
+  --font-display: 'Fredoka', sans-serif;
+  --font-script: 'Caveat', cursive;
+  --font-mono: 'Space Mono', monospace;
+}
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root{ height: 100%; }
+body{ -webkit-font-smoothing: antialiased; }
+
+/* palco = a tela inteira, cor de fundo muda conforme a fase do jogo */
+.palco{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6vh 6vw;
+  background: var(--marrom);
+  color: var(--branco);
+  transition: background 600ms cubic-bezier(0.4, 0, 0.2, 1), color 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.palco[data-tela="estudo"]{ background: var(--vermelho); }
+.palco[data-tela="discurso"]{ background: var(--amarelo); color: var(--marrom); }
+
+/* logo: 4 bolinhas, canto superior esquerdo */
+.logo{
+  position: absolute;
+  top: 3.4vh;
+  left: 3vw;
+  display: grid;
+  grid-template-columns: repeat(2, 18px);
+  grid-template-rows: repeat(2, 18px);
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.logo span{ width: 18px; height: 18px; border-radius: 50%; background: var(--amarelo); }
+.palco[data-tela="discurso"] .logo span{ background: var(--vermelho); }
+
+/* streak, canto superior direito */
+.streak-badge{
+  font-family: var(--font-mono);
+  font-size: 12px; border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.canto-superior-direito{
+  position: absolute; 
+  top: 3.4vh; 
+  right: 3vw; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; } 
+  .btn-som{ width: 2.1em; height: 2.1em; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.4); background: transparent; color: inherit; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; } 
+  .btn-som:hover{ background: rgba(255,255,255,0.15); 
+}
+
+h1, .titulo{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  max-width: 82vw;
+  margin-bottom: 2.4vh;
+}
+
+/* passos numerados */
+.passos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8vh 2.2em;
+  list-style: none;
+  margin-bottom: 3vh;
+}
+.passos li{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.7vw, 1.4rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.passo-num{
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--amarelo);
+  color: var(--marrom);
+  font-size: 0.85em;
+}
+.palco[data-tela="discurso"] .passo-num{ background: var(--marrom); color: var(--amarelo); }
+
+/* botões em pílula */
+.acao{ display: flex; align-items: center; gap: 0.9em; margin-bottom: 3vh; flex-wrap: wrap; justify-content: center; }
+.pill{
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  padding: 0.6em 1.6em;
+  border: 3px solid var(--amarelo);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--amarelo);
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+.pill:hover{ background: var(--amarelo); color: var(--marrom); }
+.pill--principal{
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+  color: var(--branco);
+}
+.pill--principal:hover{ background: var(--amarelo); border-color: var(--amarelo); color: var(--marrom); }
+
+.palco[data-tela="estudo"] .pill{ border-color: var(--branco); color: var(--branco); }
+.palco[data-tela="estudo"] .pill:hover{ background: var(--branco); color: var(--vermelho); }
+.palco[data-tela="estudo"] .pill--principal{ background: var(--amarelo); border-color: var(--amarelo); color: var(--vermelho); }
+.palco[data-tela="estudo"] .pill--principal:hover{ background: var(--branco); color: var(--vermelho); }
+
+.palco[data-tela="discurso"] .pill{ border-color: var(--marrom); color: var(--marrom); }
+.palco[data-tela="discurso"] .pill:hover{ background: var(--marrom); color: var(--amarelo); }
+.palco[data-tela="discurso"] .pill--principal{ border-color: var(--vermelho); color: var(--branco); background: var(--vermelho); }
+.palco[data-tela="discurso"] .pill--principal:hover{ background: var(--marrom); border-color: var(--marrom); color: var(--amarelo); }
+
+.engrenagem{
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 50%;
+  border: 3px solid var(--amarelo);
+  background: transparent;
+  color: var(--amarelo);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 140ms ease, color 140ms ease, transform 200ms ease;
+}
+.engrenagem:hover{ background: var(--amarelo); color: var(--marrom); transform: rotate(35deg); }
+
+/* exemplos na tela inicial */
+.exemplos{ margin-top: 4vh; }
+.exemplos-lead{ font-family: var(--font-script); font-size: 1.1rem; color: var(--amarelo); margin-bottom: 0.6vh; }
+.exemplos-lista{
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4em 1.4em;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.5rem;
+  text-transform: uppercase; color: var(--amarelo);
+}
+
+@keyframes entraExemplo{
+  from{ opacity: 0; transform: translateY(6px); }
+  to{ opacity: 1; transform: none; }
+}
+.exemplo-item{
+  display: inline-block;
+  animation: entraExemplo 350ms ease-out;
+}
+
+/* tema sorteado */
+.tag-cat{ font-family: var(--font-script); font-size: 1.2rem; color: var(--amarelo); margin-bottom: 1.4vh; }
+.tema-texto{
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(2.2rem,6vw, 4.2rem); line-height: 1.1; max-width: 84vw; margin-bottom: 3vh;
+}
+
+/* estudo / discurso: rótulo + relógio */
+.rotulo{ font-family: var(--font-script); font-size: 1.4rem; color: var(--amarelo); margin-bottom: 1vh; }
+.palco[data-tela="discurso"] .rotulo{ color: var(--marrom); }
+.tema-secundario{
+  font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+  font-size: clamp(1.1rem, 2.6vw, 1.8rem); max-width: 80vw; margin-bottom: 2vh;
+}
+.relogio{
+  font-family: var(--font-display); font-weight: 700; font-variant-numeric: tabular-nums;
+  font-size: clamp(4rem, 14vw, 10rem); line-height: 0.95; color: var(--amarelo); margin-bottom: 3vh;
+}
+.palco[data-tela="discurso"] .relogio{ color: var(--marrom); }
+.relogio.is-pausado{ opacity: 0.45; }
+.cycle-note{ font-family: var(--font-mono); font-size: 12px; opacity: 0.7; margin-bottom: 1vh; }
+.barra-progresso{ width: min(420px, 80vw); height: 8px; border-radius: 999px; background: rgba(255,255,255,0.25); overflow: hidden; margin-bottom: 2.4vh; } .barra-progresso-preenchimento{ height: 100%; background: currentColor; transition: width 1s linear; }
+
+/* confirmação antes do discurso / painel de config compartilham essa moldura */
+.overlay{
+  position: fixed; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center;
+  background: rgba(38, 22, 7, 0.82); padding: 4vh 5vw;
+}
+.overlay-caixa{
+  width: min(28rem, 100%); background: var(--marrom); border: 3px solid var(--amarelo);
+  border-radius: 1.4rem; padding: 2.2rem; display: flex; flex-direction: column; align-items: center; gap: 1.8rem;
+  color: var(--branco); text-align: center;
+}
+.overlay-config{ width: min(34rem, 100%); align-items: stretch; text-align: left; position: relative; }
+.overlay-titulo{
+  font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; text-transform: uppercase; color: var(--amarelo);
+}
+.overlay-fechar{
+  position: absolute; top: 1rem; right: 1.1rem; width: 2rem; height: 2rem; border-radius: 50%;
+  border: none; background: transparent; color: var(--amarelo); font-size: 1.1rem; cursor: pointer;
+}
+.overlay-fechar:hover{ background: var(--amarelo); color: var(--marrom); }
+.config-bloco{ margin-bottom: 1.6rem; }
+.config-bloco h3{
+  font-family: var(--font-display); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amarelo); margin-bottom: 0.8rem;
+}
+.config-opcoes{ display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.opcao-pill{
+  padding: 0.5em 1.1em; border: 2px solid rgba(255,255,255,0.3); border-radius: 999px; background: transparent;
+  font-family: var(--font-script); font-size: 1rem; color: var(--branco); cursor: pointer;
+}
+.opcao-pill.is-marcada{ background: var(--amarelo); border-color: var(--amarelo); color: var(--marrom); }
+.config-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.config-grid label{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.6); display: block; margin-bottom: 4px; }
+.config-grid input{
+  width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); color: var(--branco);
+  font-family: var(--font-mono); padding: 8px 10px; border-radius: 6px;
+}
+.history-list{ list-style: none; font-family: var(--font-mono); font-size: 12px; }
+.history-list li{ padding: 6px 0; border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-between; gap: 8px; color: rgba(255,255,255,0.75); }
+.history-list li:first-child{ border-top: none; }
+
+/* festa (comemoração) */
+.festa{
+  position: fixed; inset: 0; z-index: 7; display: flex; align-items: center; justify-content: center;
+  background: rgba(96, 56, 19, 0.92); overflow: hidden; pointer-events: none;
+}
+.festa-grito{
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(3rem, 12vw, 7rem); color: var(--amarelo);
+}
+.confete{ position: absolute; top: -8vh; width: 12px; height: 12px; border-radius: 50%; animation: cai linear forwards; }
+@keyframes cai{
+  from{ transform: translateY(0) rotate(0deg); opacity: 1; }
+  to{ transform: translateY(118vh) rotate(540deg); opacity: 0.9; }
+}
+
+/* rodapé */
+.assinatura, .sugerir{
+  position: absolute; bottom: 1.8vh; font-family: var(--font-script); font-size: 1rem;
+  display: inline-flex; align-items: center; gap: 0.5em; z-index: 4;
+}
+.assinatura{ left: 2vw; opacity: 0.85; }
+.sugerir{
+  right: 2vw; padding: 0.5em 1.1em; border: 2px solid var(--amarelo); border-radius: 999px;
+  color: var(--amarelo); background: transparent; cursor: pointer;
+}
+.sugerir:hover{ background: var(--amarelo); color: var(--marrom); }
+.ig-pill{
+  display: inline-flex; align-items: center; gap: 0.4em; border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 999px; padding: 0.4em 0.9em; color: var(--branco); text-decoration: none; font-size: 0.95rem;
+}
+.atalhos{
+  position: absolute; bottom: 1.8vh; left: 0; right: 0; text-align: center;
+  font-family: var(--font-mono); font-size: 11px; opacity: 0.4; pointer-events: none;
+}
+
+@media (max-width: 640px){ 
+  .palco{ padding: 8vh 6vw 11vh; } 
+  .logo{ top: 2.4vh; left: 4vw; } 
+  .canto-superior-direito{ top: 2.4vh; right: 4vw; gap: 8px; } 
+  .streak-badge{ font-size: 10px; padding: 4px 9px; } 
+  .btn-som{ width: 1.9em; height: 1.9em; font-size: 11px; } 
+  .passos{ gap: 0.6vh 1.4em; margin-bottom: 2.4vh; } 
+  .acao{ gap: 0.7em; margin-bottom: 2.4vh; } 
+  .pill{ padding: 0.55em 1.3em; } 
+  .config-grid{ grid-template-columns: 1fr; } 
+  .overlay-caixa{ max-height: 82vh; overflow-y: auto; padding: 1.6rem; } 
+  .assinatura, .sugerir{ font-size: 0.8rem; } 
+  .assinatura{ left: 3vw; } 
+  .sugerir{ right: 3vw; padding: 0.45em 0.9em; } 
+  .atalhos{ display: none; } }
+
+@keyframes entraTela{ from{ opacity: 0; transform: translateY(18px) scale(0.97); } to{ opacity: 1; transform: none; } } 
+  .tela-conteudo{ animation: entraTela 480ms cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; align-items: center; }
+
+.meta-diaria {
+  font-family: var(--font-script);
+  font-size: 1.15rem;color: var(--amarelo);margin-top: 1.6vh;
+}
+
+.palco[data-tela="discurso"] .meta-diaria{
+  color: var(--marrom);
+}
+
+.carregando-overlay{ position: fixed; inset: 0; z-index: 8; display: flex; align-items: center; justify-content: center; background: var(--marrom); color: var(--amarelo); font-family: var(--font-script); font-size: 1.4rem; }
+.erro-toast{ position: fixed; bottom: 5vh; left: 50%; transform: translateX(-50%); background: var(--vermelho); color: var(--branco); padding: 12px 18px; border-radius: 999px; display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.35); max-width: 90vw; } .erro-toast button{ background: transparent; border: none; color: var(--branco); cursor: pointer; font-size: 14px; padding: 0; flex-shrink: 0; }
