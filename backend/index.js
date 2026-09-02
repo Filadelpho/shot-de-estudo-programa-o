@@ -3,7 +3,7 @@ import cors from 'cors';
 import db from './db.js';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -37,7 +37,7 @@ app.post('/api/history', (req, res) => {
 
 // registra um shot completo (atualiza o streak)
 app.post('/api/shots', (req, res) => {
-  const today = new Date().toISOString().slice(0, 10); // formato AAAA-MM-DD
+  const today = new Date().toISOString().slice(0, 10);
   const current = db.prepare('SELECT count, shots_today, last_date FROM streak WHERE id = 1').get();
 
   let { count, shots_today, last_date } = current;
