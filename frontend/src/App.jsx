@@ -4,7 +4,7 @@ import { CATEGORIES } from './data/topics';
 const DURACOES = { estudo: 60, discurso: 60 };
 const CORES_CONFETE = ['#ffff00', '#ffffff', '#ff2e3e'];
 const FRASES_FESTA = ['oba!', 'mandou bem!', 'aí sim!', 'shot completo!', 'sequência viva!', 'isso aí!'];
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://shot-de-estudo-api-programa.onrender.com/api';
 
 function App() {
   const [catId, setCatId] = useState(CATEGORIES[0].id);
